@@ -72,6 +72,11 @@ func TestEngine_moveAlien(t *testing.T) {
 		"barcelona",
 		e.aliens[0].Location.Name(),
 	)
+
+	assert.Equal(t,
+		uint64(1),
+		e.aliens[0].Steps,
+	)
 }
 
 type mockMap struct {

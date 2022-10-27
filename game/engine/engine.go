@@ -52,7 +52,7 @@ func (e *Engine) areAliensMaxedOutOnTravels() bool {
 func (e *Engine) moveAliens() {
 	for _, alien := range e.aliens {
 		alien.Location = e.gameMap.RandomNeighbourCity(alien.Location)
-		println(e.aliens[0].Location)
+		alien.Steps++
 	}
 }
 
