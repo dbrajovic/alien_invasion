@@ -7,11 +7,11 @@ const (
 )
 
 type Engine struct {
-	aliens  []types.Alien
+	aliens  []*types.Alien
 	gameMap Map
 }
 
-func New(aliens []types.Alien, gameMap Map) *Engine {
+func New(aliens []*types.Alien, gameMap Map) *Engine {
 	return &Engine{aliens, gameMap}
 }
 
@@ -23,6 +23,7 @@ func (e *Engine) Run() {
 		}
 
 		//	move aliens
+		e.moveAliens()
 
 		//	fight aliens
 
@@ -46,4 +47,15 @@ func (e *Engine) areAliensMaxedOutOnTravels() bool {
 	}
 
 	return true
+}
+
+func (e *Engine) moveAliens() {
+	for _, alien := range e.aliens {
+		alien.Location = e.gameMap.RandomNeighbourCity(alien.Location)
+		println(e.aliens[0].Location)
+	}
+}
+
+func (e *Engine) move(alien types.Alien) {
+
 }
