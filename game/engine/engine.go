@@ -41,7 +41,7 @@ func (e *Engine) areAliensDead() bool {
 
 func (e *Engine) areAliensMaxedOutOnTravels() bool {
 	for _, alien := range e.aliens {
-		if alien.Steps < maxTravels {
+		if alien.Travels < maxTravels {
 			return false
 		}
 	}
@@ -52,7 +52,7 @@ func (e *Engine) areAliensMaxedOutOnTravels() bool {
 func (e *Engine) moveAliens() {
 	for _, alien := range e.aliens {
 		alien.Location = e.gameMap.RandomNeighbourCity(alien.Location)
-		alien.Steps++
+		alien.Travels++
 	}
 }
 

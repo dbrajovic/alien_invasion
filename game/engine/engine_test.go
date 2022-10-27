@@ -16,7 +16,7 @@ func TestEngine_isDone(t *testing.T) {
 					{
 						Name:     "alien_1",
 						Location: "belgrade",
-						Steps:    maxTravels},
+						Travels:  maxTravels},
 				},
 				nil,
 			)
@@ -42,7 +42,7 @@ func TestEngine_isDone(t *testing.T) {
 		func(t *testing.T) {
 			e := New(
 				[]*types.Alien{
-					{Name: "alien", Location: "belgrade", Steps: 0},
+					{Name: "alien", Location: "belgrade", Travels: 0},
 				},
 				nil,
 			)
@@ -58,7 +58,7 @@ func TestEngine_moveAlien(t *testing.T) {
 			{
 				Name:     "alien",
 				Location: "belgrade",
-				Steps:    0,
+				Travels:  0,
 			},
 		},
 		mockMap{
@@ -75,7 +75,7 @@ func TestEngine_moveAlien(t *testing.T) {
 
 	assert.Equal(t,
 		uint64(1),
-		e.aliens[0].Steps,
+		e.aliens[0].Travels,
 	)
 }
 
