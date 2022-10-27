@@ -12,7 +12,7 @@ func TestEngine_isDone(t *testing.T) {
 		"aliens are maxed out on travels",
 		func(t *testing.T) {
 			e := New(
-				[]types.Alien{
+				[]*types.Alien{
 					{
 						Name:     "alien_1",
 						Location: "belgrade",
@@ -29,7 +29,7 @@ func TestEngine_isDone(t *testing.T) {
 		"aliens are dead",
 		func(t *testing.T) {
 			e := New(
-				[]types.Alien{},
+				[]*types.Alien{},
 				nil,
 			)
 
@@ -41,7 +41,7 @@ func TestEngine_isDone(t *testing.T) {
 		"aliens are not maxed out on travels",
 		func(t *testing.T) {
 			e := New(
-				[]types.Alien{
+				[]*types.Alien{
 					{Name: "alien", Location: "belgrade", Steps: 0},
 				},
 				nil,
@@ -50,4 +50,56 @@ func TestEngine_isDone(t *testing.T) {
 			assert.False(t, e.isDone())
 		},
 	)
+}
+
+func TestEngine_moveAlien(t *testing.T) {
+	e := New(
+		[]*types.Alien{
+			{
+				Name:     "alien",
+				Location: "belgrade",
+				Steps:    0,
+			},
+		},
+		mockMap{
+			neighbourCallback: func(_ types.City) types.City { return "barcelona" },
+		},
+	)
+
+	e.moveAliens()
+
+	assert.Equal(t,
+		"barcelona",
+		e.aliens[0].Location.Name(),
+	)
+}
+
+type mockMap struct {
+	citiesCallback    func() []types.City
+	neighbourCallback func(types.City) types.City
+	removeCallback    func(city types.City)
+}
+
+func (m mockMap) Cities() []types.City {
+	if m.citiesCallback == nil {
+		return nil
+	}
+
+	return m.citiesCallback()
+}
+
+func (m mockMap) RandomNeighbourCity(city types.City) types.City {
+	if m.neighbourCallback == nil {
+		return ""
+	}
+
+	return m.neighbourCallback(city)
+}
+
+func (m mockMap) RemoveCity(city types.City) {
+	if m.removeCallback == nil {
+		return
+	}
+
+	m.removeCallback(city)
 }
