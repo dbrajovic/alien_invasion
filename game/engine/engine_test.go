@@ -105,6 +105,33 @@ func TestEngine_aliensFight(t *testing.T) {
 			assert.Nil(t, destroyedCities)
 		},
 	)
+
+	t.Run(
+		"2 aliens die and a city is destroyed",
+		func(t *testing.T) {
+			e := New(
+				[]*types.Alien{
+					{
+						Name:     "alien_1",
+						Location: "belgrade",
+						Travels:  0,
+					},
+					{
+						Name:     "alien_2",
+						Location: "belgrade",
+						Travels:  0,
+					},
+				},
+				nil,
+			)
+
+			destroyedCities := e.aliensFight()
+
+			assert.Len(t, e.aliens, 0)
+			assert.Len(t, destroyedCities, 1)
+			assert.Equal(t, destroyedCities[0].Name(), "belgrade")
+		},
+	)
 }
 
 type mockMap struct {
