@@ -3,6 +3,7 @@ package _map
 import "github.com/alien_invasion/game/types"
 
 type Map struct {
+	cities map[types.City]*neighbourhood
 }
 
 func New(filename string) *Map {
