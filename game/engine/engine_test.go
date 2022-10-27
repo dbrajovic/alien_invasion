@@ -79,6 +79,34 @@ func TestEngine_moveAlien(t *testing.T) {
 	)
 }
 
+func TestEngine_aliensFight(t *testing.T) {
+	t.Run(
+		"no fight happened",
+		func(t *testing.T) {
+			e := New(
+				[]*types.Alien{
+					{
+						Name:     "alien_1",
+						Location: "belgrade",
+						Travels:  0,
+					},
+					{
+						Name:     "alien_2",
+						Location: "barcelona",
+						Travels:  0,
+					},
+				},
+				nil,
+			)
+
+			destroyedCities := e.aliensFight()
+
+			assert.Len(t, e.aliens, 2)
+			assert.Nil(t, destroyedCities)
+		},
+	)
+}
+
 type mockMap struct {
 	citiesCallback    func() []types.City
 	neighbourCallback func(types.City) types.City
