@@ -76,7 +76,7 @@ func loadCities(file *os.File) map[types.City]*neighbourhood {
 		words := strings.Fields(line)
 
 		city := types.City(words[0])
-		cities[city] = generateNeighbourhood(words[1:]...)
+		cities[city] = parseNeighbourhood(words[1:]...)
 	}
 
 	if err := sc.Err(); err != nil {

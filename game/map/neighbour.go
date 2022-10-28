@@ -85,7 +85,7 @@ func (n *neighbourhood) getRandomNeighbour() types.City {
 	return neighbours[rand.Intn(len(*n))]
 }
 
-func generateNeighbourhood(neighbours ...string) *neighbourhood {
+func parseNeighbourhood(neighbours ...string) *neighbourhood {
 	neighbourhood := make(neighbourhood)
 
 	for _, neighbour := range neighbours {
