@@ -2,6 +2,7 @@ package engine
 
 import (
 	"github.com/alien_invasion/game/types"
+	"log"
 )
 
 const (
@@ -94,7 +95,7 @@ func (e *Engine) aliensFight() []types.City {
 			destroyedCities = append(destroyedCities, city)
 			deadAliens = append(deadAliens, aliens...)
 
-			//	print
+			displayDestroyed(city, aliens)
 		}
 	}
 
@@ -107,4 +108,13 @@ func (e *Engine) aliensFight() []types.City {
 	}
 
 	return destroyedCities
+}
+
+func displayDestroyed(ciy types.City, aliens []*types.Alien) {
+	var res string
+	for _, alien := range aliens {
+		res += alien.Name + " "
+	}
+
+	log.Println(ciy, "has been destoryed by aliens", res)
 }
