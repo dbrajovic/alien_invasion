@@ -14,36 +14,8 @@ type Map struct {
 
 func New(filename string) *Map {
 	return &Map{
-		cities: loadCities(filename),
+		cities: loadMap(filename),
 	}
-}
-
-func loadCities(filename string) map[types.City]*neighbourhood {
-	f, err := os.Open(filename)
-	if err != nil {
-		panic(err)
-	}
-
-	defer func() {
-		if err := f.Close(); err != nil {
-			log.Fatal("cannot close file", "err=", err)
-		}
-	}()
-
-	sc := bufio.NewScanner(f)
-
-	cities := make(map[types.City]*neighbourhood)
-	for sc.Scan() {
-		line := sc.Text()
-
-		words := strings.Fields(line)
-
-		city := types.City(words[0])
-
-		cities[city] = generateNeighbourhood(words[1:]...)
-	}
-
-	return cities
 }
 
 func (m *Map) Display() {
@@ -66,4 +38,40 @@ func (m *Map) RemoveCity(city types.City) {
 	for _, neighbourhood := range m.cities {
 		neighbourhood.remove(city)
 	}
+}
+
+func loadMap(filename string) map[types.City]*neighbourhood {
+	f, err := os.Open(filename)
+	if err != nil {
+		log.Fatal("cannot open file:", filename, "err=", err)
+	}
+
+	defer func() {
+		if err := f.Close(); err != nil {
+			log.Fatal("cannot close file", "err=", err)
+		}
+	}()
+
+	return loadCities(f)
+}
+
+func loadCities(file *os.File) map[types.City]*neighbourhood {
+	cities := make(map[types.City]*neighbourhood)
+
+	sc := bufio.NewScanner(file)
+	for sc.Scan() {
+		line := sc.Text()
+
+		words := strings.Fields(line)
+
+		city := types.City(words[0])
+
+		cities[city] = generateNeighbourhood(words[1:]...)
+	}
+
+	if err := sc.Err(); err != nil {
+		log.Fatal("scanner error:", err)
+	}
+
+	return cities
 }

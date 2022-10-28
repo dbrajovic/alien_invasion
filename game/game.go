@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	mapFilename string = "game_map"
+	mapFilename string = "map_test"
 )
 
 type Game struct {

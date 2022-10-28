@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestName(t *testing.T) {
+func TestNewMap(t *testing.T) {
 	cwd, _ := os.Getwd()
 	m := New(cwd + "/map_test")
 
