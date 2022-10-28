@@ -1,6 +1,8 @@
 package engine
 
-import "github.com/alien_invasion/game/types"
+import (
+	"github.com/alien_invasion/game/types"
+)
 
 const (
 	maxTravels uint64 = 10000
@@ -12,7 +14,10 @@ type Engine struct {
 }
 
 func New(aliens uint64, gameMap Map) *Engine {
-	return &Engine{nil, gameMap}
+	return &Engine{
+		spawnRandomAliens(aliens, gameMap),
+		gameMap,
+	}
 }
 
 func (e *Engine) Run() {
