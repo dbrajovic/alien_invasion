@@ -1,8 +1,9 @@
 package engine
 
 import (
-	"github.com/alien_invasion/game/types"
 	"log"
+
+	"github.com/alien_invasion/game/types"
 )
 
 const (
@@ -25,18 +26,14 @@ func (e *Engine) Run() {
 	defer e.gameMap.Display()
 
 	for {
-		//	check if game should stop
 		if e.isDone() {
 			return
 		}
 
-		//	move aliens
 		e.moveAliens()
 
-		//	fight aliens
 		destroyed := e.aliensFight()
 
-		//	remove destroyed cities (if any)
 		e.removeCities(destroyed...)
 	}
 }
@@ -72,12 +69,7 @@ func (e *Engine) moveAliens() {
 	}
 }
 
-func (e *Engine) move(alien types.Alien) {
-
-}
-
 func (e *Engine) aliensFight() []types.City {
-
 	aliensByCities := make(map[types.City][]*types.Alien)
 	for _, alien := range e.aliens {
 		existing := aliensByCities[alien.Location]
@@ -116,5 +108,5 @@ func displayDestroyed(ciy types.City, aliens []*types.Alien) {
 		res += alien.Name + " "
 	}
 
-	log.Println(ciy, "has been destoryed by aliens", res)
+	log.Println(ciy, "has been destroyed by aliens:", res)
 }

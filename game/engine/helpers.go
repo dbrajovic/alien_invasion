@@ -21,7 +21,7 @@ func spawnRandomAliens(num uint64, gameMap Map) []*types.Alien {
 func spawnAlien(i int, cities []types.City) *types.Alien {
 	return &types.Alien{
 		Name:     generateName(i),
-		Location: generateRandomCity(cities),
+		Location: randomCity(cities),
 		Travels:  0,
 	}
 }
@@ -30,6 +30,6 @@ func generateName(i int) string {
 	return fmt.Sprintf("alien_%d", i)
 }
 
-func generateRandomCity(cities []types.City) types.City {
+func randomCity(cities []types.City) types.City {
 	return cities[rand.Intn(len(cities))]
 }

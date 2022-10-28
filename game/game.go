@@ -19,7 +19,7 @@ type Game struct {
 func New(numAliens uint64) *Game {
 	cwd, err := os.Getwd()
 	if err != nil {
-		log.Fatal("cannot open file:", "err=", err)
+		log.Fatal("cannot open file: %w", err)
 	}
 
 	return &Game{

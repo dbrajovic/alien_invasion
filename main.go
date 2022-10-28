@@ -8,11 +8,23 @@ import (
 )
 
 func main() {
+	game.New(inputNumAliens()).Run()
+}
+
+func inputNumAliens() uint64 {
 	var input uint64
 
-	if _, err := fmt.Scanf("%d", &input); err != nil {
-		log.Fatal("failed to read input: %w", err)
-	}
+	for {
+		if _, err := fmt.Scanf("%d", &input); err != nil {
+			log.Fatal("failed to read input: %w", err)
+		}
 
-	game.New(input).Run()
+		if input == 0 {
+			fmt.Println("number must be greater than 0")
+
+			continue
+		}
+
+		return input
+	}
 }

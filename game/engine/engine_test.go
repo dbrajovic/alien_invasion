@@ -168,3 +168,7 @@ func (m mockMap) RemoveCity(city types.City) {
 
 	m.removeCallback(city)
 }
+
+func (m mockMap) Display() {
+
+}

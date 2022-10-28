@@ -2,10 +2,11 @@ package _map
 
 import (
 	"bufio"
-	"github.com/alien_invasion/game/types"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/alien_invasion/game/types"
 )
 
 type Map struct {
@@ -43,10 +44,8 @@ func (m *Map) RandomNeighbourCity(city types.City) types.City {
 }
 
 func (m *Map) RemoveCity(city types.City) {
-	//	remove from map
 	delete(m.cities, city)
 
-	//	remove from all neighbrouhoods
 	for _, neighbourhood := range m.cities {
 		neighbourhood.remove(city)
 	}
@@ -55,12 +54,12 @@ func (m *Map) RemoveCity(city types.City) {
 func loadMap(filename string) map[types.City]*neighbourhood {
 	f, err := os.Open(filename)
 	if err != nil {
-		log.Fatal("cannot open file:", filename, "err=", err)
+		log.Fatalf("cannot open %s: %v", filename, err)
 	}
 
 	defer func() {
 		if err := f.Close(); err != nil {
-			log.Fatal("cannot close file:", "err=", err)
+			log.Fatalf("cannot close %s: %v", filename, err)
 		}
 	}()
 
@@ -81,7 +80,7 @@ func loadCities(file *os.File) map[types.City]*neighbourhood {
 	}
 
 	if err := sc.Err(); err != nil {
-		log.Fatal("scanner error:", "err", err)
+		log.Fatalf("scanner error: %v", err)
 	}
 
 	return cities
