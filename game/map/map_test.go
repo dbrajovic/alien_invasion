@@ -3,11 +3,23 @@ package _map
 import (
 	"github.com/alien_invasion/game/types"
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
 )
 
 func TestName(t *testing.T) {
-	New("game_map")
+	cwd, _ := os.Getwd()
+	m := New(cwd + "/map_test")
+
+	assert.Contains(t, m.cities, types.City("Foo"))
+	assert.Contains(t, m.cities, types.City("Boo"))
+
+	assert.True(t, m.cities["Foo"].isNeighbour("Baz"))
+	assert.True(t, m.cities["Foo"].isNeighbour("Boo"))
+	assert.True(t, m.cities["Foo"].isNeighbour("Honolulu"))
+
+	assert.True(t, m.cities["Boo"].isNeighbour("Foo"))
+	assert.True(t, m.cities["Boo"].isNeighbour("Car"))
 }
 
 func TestMap_RemoveCity(t *testing.T) {

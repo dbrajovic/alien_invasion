@@ -42,12 +42,6 @@ func (e *Engine) isDone() bool {
 	return e.areAliensDead() || e.areAliensMaxedOutOnTravels()
 }
 
-func (e *Engine) removeCities(cities ...types.City) {
-	for _, city := range cities {
-		e.gameMap.RemoveCity(city)
-	}
-}
-
 func (e *Engine) areAliensDead() bool {
 	return len(e.aliens) == 0
 }
@@ -60,6 +54,12 @@ func (e *Engine) areAliensMaxedOutOnTravels() bool {
 	}
 
 	return true
+}
+
+func (e *Engine) removeCities(cities ...types.City) {
+	for _, city := range cities {
+		e.gameMap.RemoveCity(city)
+	}
 }
 
 func (e *Engine) moveAliens() {
