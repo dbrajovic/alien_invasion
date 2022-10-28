@@ -1,6 +1,7 @@
 package _map
 
 import (
+	"fmt"
 	"github.com/alien_invasion/game/types"
 	"math/rand"
 	"strings"
@@ -30,7 +31,31 @@ func newDirection(str string) direction {
 	}
 }
 
+func (d direction) String() string {
+	switch d {
+	case north:
+		return "north"
+	case west:
+		return "west"
+	case east:
+		return "east"
+	case south:
+		return "south"
+	default:
+		return ""
+	}
+}
+
 type neighbourhood map[direction]types.City
+
+func (n *neighbourhood) String() string {
+	var result string
+	for dir, city := range *n {
+		result += fmt.Sprintf("%s=%s ", dir, city)
+	}
+
+	return result
+}
 
 func (n *neighbourhood) add(d direction, city types.City) {
 	(*n)[d] = city

@@ -19,7 +19,9 @@ func New(filename string) *Map {
 }
 
 func (m *Map) Display() {
-
+	for city, nbhd := range m.cities {
+		log.Println(city, nbhd)
+	}
 }
 
 func (m *Map) Cities() []types.City {
