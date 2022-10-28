@@ -14,8 +14,5 @@ func main() {
 		log.Fatal("failed to read input: %w", err)
 	}
 
-	//	init game
-	game.New().Run()
-
-	//	run game
+	game.New(input).Run()
 }
