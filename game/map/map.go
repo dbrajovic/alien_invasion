@@ -34,7 +34,12 @@ func (m *Map) Cities() []types.City {
 }
 
 func (m *Map) RandomNeighbourCity(city types.City) types.City {
-	return m.cities[city].getRandomNeighbour()
+	nbhd := m.cities[city]
+	if nbhd.empty() {
+		return city
+	}
+
+	return nbhd.getRandomNeighbour()
 }
 
 func (m *Map) RemoveCity(city types.City) {
@@ -76,7 +81,7 @@ func loadCities(file *os.File) map[types.City]*neighbourhood {
 	}
 
 	if err := sc.Err(); err != nil {
-		log.Fatal("scanner error:", err)
+		log.Fatal("scanner error:", "err", err)
 	}
 
 	return cities

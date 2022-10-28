@@ -72,6 +72,10 @@ func (n *neighbourhood) isNeighbour(city types.City) bool {
 	return ok
 }
 
+func (n *neighbourhood) empty() bool {
+	return len(*n) == 0
+}
+
 func (n *neighbourhood) getRandomNeighbour() types.City {
 	neighbours := make([]types.City, 0, len(*n))
 	for city := range *n {
