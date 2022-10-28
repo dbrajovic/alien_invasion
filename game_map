@@ -1,2 +1,5 @@
 Foo north=Baz south=Boo west=Honolulu
 Boo north=Foo south=Car
+Honolulu east=Foo
+Baz south=Foo
+Car north=Boo
