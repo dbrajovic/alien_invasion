@@ -31,14 +31,21 @@ func (e *Engine) Run() {
 		e.moveAliens()
 
 		//	fight aliens
-		e.aliensFight()
+		destroyed := e.aliensFight()
 
 		//	remove destroyed cities (if any)
+		e.removeCities(destroyed...)
 	}
 }
 
 func (e *Engine) isDone() bool {
 	return e.areAliensDead() || e.areAliensMaxedOutOnTravels()
+}
+
+func (e *Engine) removeCities(cities ...types.City) {
+	for _, city := range cities {
+		e.gameMap.RemoveCity(city)
+	}
 }
 
 func (e *Engine) areAliensDead() bool {

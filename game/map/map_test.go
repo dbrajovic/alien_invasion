@@ -6,6 +6,10 @@ import (
 	"testing"
 )
 
+func TestName(t *testing.T) {
+	New("game_map")
+}
+
 func TestMap_RemoveCity(t *testing.T) {
 	t.Run(
 		"middle city is removed",

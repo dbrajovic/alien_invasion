@@ -3,6 +3,7 @@ package _map
 import (
 	"github.com/alien_invasion/game/types"
 	"math/rand"
+	"strings"
 )
 
 type direction uint8
@@ -13,6 +14,21 @@ const (
 	south
 	east
 )
+
+func newDirection(str string) direction {
+	switch str {
+	case "north":
+		return north
+	case "west":
+		return west
+	case "south":
+		return south
+	case "east":
+		return east
+	default:
+		panic("unknown direction")
+	}
+}
 
 type neighbourhood map[direction]types.City
 
@@ -45,4 +61,24 @@ func (n *neighbourhood) getRandomNeighbour() types.City {
 	}
 
 	return neighbours[rand.Intn(len(*n))]
+}
+
+func generateNeighbourhood(neighbours ...string) *neighbourhood {
+	neighbourhood := make(neighbourhood)
+
+	for _, neighbour := range neighbours {
+		info := strings.Split(neighbour, "=")
+		if len(info) != 2 {
+			panic("bad format")
+		}
+
+		var (
+			dir  = info[0]
+			city = info[1]
+		)
+
+		neighbourhood.add(newDirection(dir), types.City(city))
+	}
+
+	return &neighbourhood
 }
