@@ -11,8 +11,8 @@ type Engine struct {
 	gameMap Map
 }
 
-func New(aliens []*types.Alien, gameMap Map) *Engine {
-	return &Engine{aliens, gameMap}
+func New(aliens uint64, gameMap Map) *Engine {
+	return &Engine{nil, gameMap}
 }
 
 func (e *Engine) Run() {

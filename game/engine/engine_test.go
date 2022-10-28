@@ -11,15 +11,16 @@ func TestEngine_isDone(t *testing.T) {
 	t.Run(
 		"aliens are maxed out on travels",
 		func(t *testing.T) {
-			e := New(
-				[]*types.Alien{
+			e := &Engine{
+				aliens: []*types.Alien{
 					{
 						Name:     "alien_1",
 						Location: "belgrade",
-						Travels:  maxTravels},
+						Travels:  maxTravels,
+					},
 				},
-				nil,
-			)
+				gameMap: nil,
+			}
 
 			assert.True(t, e.isDone())
 		},
@@ -28,10 +29,10 @@ func TestEngine_isDone(t *testing.T) {
 	t.Run(
 		"aliens are dead",
 		func(t *testing.T) {
-			e := New(
-				[]*types.Alien{},
-				nil,
-			)
+			e := &Engine{
+				aliens:  []*types.Alien{},
+				gameMap: nil,
+			}
 
 			assert.True(t, e.isDone())
 		},
@@ -40,12 +41,16 @@ func TestEngine_isDone(t *testing.T) {
 	t.Run(
 		"aliens are not maxed out on travels",
 		func(t *testing.T) {
-			e := New(
-				[]*types.Alien{
-					{Name: "alien", Location: "belgrade", Travels: 0},
+			e := &Engine{
+				aliens: []*types.Alien{
+					{
+						Name:     "alien",
+						Location: "belgrade",
+						Travels:  0,
+					},
 				},
-				nil,
-			)
+				gameMap: nil,
+			}
 
 			assert.False(t, e.isDone())
 		},
@@ -53,18 +58,18 @@ func TestEngine_isDone(t *testing.T) {
 }
 
 func TestEngine_moveAlien(t *testing.T) {
-	e := New(
-		[]*types.Alien{
+	e := &Engine{
+		aliens: []*types.Alien{
 			{
 				Name:     "alien",
 				Location: "belgrade",
 				Travels:  0,
 			},
 		},
-		mockMap{
+		gameMap: mockMap{
 			neighbourCallback: func(_ types.City) types.City { return "barcelona" },
 		},
-	)
+	}
 
 	e.moveAliens()
 
@@ -81,10 +86,10 @@ func TestEngine_moveAlien(t *testing.T) {
 
 func TestEngine_aliensFight(t *testing.T) {
 	t.Run(
-		"no fight happened",
+		"no fight",
 		func(t *testing.T) {
-			e := New(
-				[]*types.Alien{
+			e := &Engine{
+				aliens: []*types.Alien{
 					{
 						Name:     "alien_1",
 						Location: "belgrade",
@@ -96,8 +101,8 @@ func TestEngine_aliensFight(t *testing.T) {
 						Travels:  0,
 					},
 				},
-				nil,
-			)
+				gameMap: nil,
+			}
 
 			destroyedCities := e.aliensFight()
 
@@ -109,8 +114,8 @@ func TestEngine_aliensFight(t *testing.T) {
 	t.Run(
 		"2 aliens die and a city is destroyed",
 		func(t *testing.T) {
-			e := New(
-				[]*types.Alien{
+			e := &Engine{
+				aliens: []*types.Alien{
 					{
 						Name:     "alien_1",
 						Location: "belgrade",
@@ -122,8 +127,8 @@ func TestEngine_aliensFight(t *testing.T) {
 						Travels:  0,
 					},
 				},
-				nil,
-			)
+				gameMap: nil,
+			}
 
 			destroyedCities := e.aliensFight()
 
