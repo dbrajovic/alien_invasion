@@ -20,5 +20,5 @@ func New(numAliens uint64) *Game {
 }
 
 func (g *Game) Run() {
-	println("game run")
+	g.Run()
 }
