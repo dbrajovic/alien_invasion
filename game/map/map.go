@@ -25,7 +25,7 @@ func (m *Map) Display() {
 }
 
 func (m *Map) Cities() []types.City {
-	cities := make([]types.City, len(m.cities))
+	cities := make([]types.City, 0, len(m.cities))
 	for city := range m.cities {
 		cities = append(cities, city)
 	}
