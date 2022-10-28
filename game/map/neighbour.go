@@ -2,6 +2,7 @@ package _map
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"strings"
 
@@ -91,7 +92,7 @@ func parseNeighbourhood(neighbours ...string) *neighbourhood {
 	for _, neighbour := range neighbours {
 		info := strings.Split(neighbour, "=")
 		if len(info) != 2 {
-			panic("bad format")
+			log.Fatal("invalid path format")
 		}
 
 		var (

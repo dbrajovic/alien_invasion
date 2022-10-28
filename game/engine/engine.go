@@ -10,7 +10,6 @@ const (
 	maxTravels uint64 = 10000
 )
 
-// Engine is the main module that runs the game to completion
 type Engine struct {
 	aliens  []*types.Alien
 	gameMap Map
