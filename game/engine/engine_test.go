@@ -8,9 +8,13 @@ import (
 )
 
 func TestEngine_isDone(t *testing.T) {
+	t.Parallel()
+
 	t.Run(
 		"aliens are maxed out on travels",
 		func(t *testing.T) {
+			t.Parallel()
+
 			e := &Engine{
 				aliens: []*types.Alien{
 					{
@@ -29,6 +33,8 @@ func TestEngine_isDone(t *testing.T) {
 	t.Run(
 		"aliens are dead",
 		func(t *testing.T) {
+			t.Parallel()
+
 			e := &Engine{
 				aliens:  []*types.Alien{},
 				gameMap: nil,
@@ -41,6 +47,8 @@ func TestEngine_isDone(t *testing.T) {
 	t.Run(
 		"aliens are not maxed out on travels",
 		func(t *testing.T) {
+			t.Parallel()
+
 			e := &Engine{
 				aliens: []*types.Alien{
 					{
@@ -58,6 +66,8 @@ func TestEngine_isDone(t *testing.T) {
 }
 
 func TestEngine_moveAlien(t *testing.T) {
+	t.Parallel()
+
 	e := &Engine{
 		aliens: []*types.Alien{
 			{
@@ -85,9 +95,13 @@ func TestEngine_moveAlien(t *testing.T) {
 }
 
 func TestEngine_aliensFight(t *testing.T) {
+	t.Parallel()
+
 	t.Run(
 		"no fight",
 		func(t *testing.T) {
+			t.Parallel()
+
 			e := &Engine{
 				aliens: []*types.Alien{
 					{
@@ -114,6 +128,8 @@ func TestEngine_aliensFight(t *testing.T) {
 	t.Run(
 		"2 aliens die and a city is destroyed",
 		func(t *testing.T) {
+			t.Parallel()
+			
 			e := &Engine{
 				aliens: []*types.Alien{
 					{

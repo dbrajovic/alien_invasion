@@ -7,6 +7,8 @@ import (
 )
 
 func TestNeighbourhood_add(t *testing.T) {
+	t.Parallel()
+
 	n := make(neighbourhood)
 
 	n.add(south, "belgrade")
@@ -17,6 +19,8 @@ func TestNeighbourhood_add(t *testing.T) {
 }
 
 func TestNeighbourhood_remove(t *testing.T) {
+	t.Parallel()
+	
 	n := make(neighbourhood)
 
 	n.add(south, "belgrade")

@@ -8,6 +8,8 @@ import (
 )
 
 func TestNewMap(t *testing.T) {
+	t.Parallel()
+
 	cwd, _ := os.Getwd()
 	m := New(cwd + "/map_test")
 
@@ -23,9 +25,13 @@ func TestNewMap(t *testing.T) {
 }
 
 func TestMap_RemoveCity(t *testing.T) {
+	t.Parallel()
+
 	t.Run(
 		"middle city is removed",
 		func(t *testing.T) {
+			t.Parallel()
+
 			m := &Map{cities: map[types.City]*neighbourhood{
 				"belgrade": {
 					"dubrovnik": west,
@@ -54,6 +60,8 @@ func TestMap_RemoveCity(t *testing.T) {
 	t.Run(
 		"left city is removed",
 		func(t *testing.T) {
+			t.Parallel()
+
 			m := &Map{cities: map[types.City]*neighbourhood{
 				"belgrade": {
 					"dubrovnik": west,
