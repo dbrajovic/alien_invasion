@@ -1,8 +1,6 @@
 package engine
 
 import (
-	"log"
-
 	"github.com/alien_invasion/game/types"
 )
 
@@ -116,11 +114,11 @@ func getCasualties(aliensByCities map[types.City][]*types.Alien) ([]*types.Alien
 	return deadAliens, destroyedCities
 }
 
-func displayDestroyed(ciy types.City, aliens []*types.Alien) {
+func displayDestroyed(city types.City, aliens []*types.Alien) {
 	var res string
 	for _, alien := range aliens {
 		res += alien.Name + " "
 	}
 
-	log.Println(ciy, "has been destroyed by aliens:", res)
+	println(city, "has been destroyed by aliens:", res)
 }

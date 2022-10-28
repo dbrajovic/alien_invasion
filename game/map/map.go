@@ -20,8 +20,9 @@ func New(filename string) *Map {
 }
 
 func (m *Map) Display() {
+	println("Remaining cities:")
 	for city, nbhd := range m.cities {
-		log.Println(city, nbhd)
+		println(city, nbhd.String())
 	}
 }
 
