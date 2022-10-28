@@ -25,4 +25,8 @@ func TestMap_RemoveCity(t *testing.T) {
 	m.RemoveCity("dubrovnik")
 
 	assert.Len(t, m.cities, 2)
+	assert.NotContains(t, m.cities, "dubrovnik")
+
+	assert.False(t, m.cities["belgrade"].isNeighbour("dubrovnik"))
+	assert.False(t, m.cities["berlin"].isNeighbour("dubrovnik"))
 }

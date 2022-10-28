@@ -23,5 +23,11 @@ func (m *Map) RandomNeighbourCity(city types.City) types.City {
 }
 
 func (m *Map) RemoveCity(city types.City) {
+	//	remove from map
+	delete(m.cities, city)
 
+	//	remove from all neighbrouhoods
+	for _, neighbourhood := range m.cities {
+		neighbourhood.remove(city)
+	}
 }
