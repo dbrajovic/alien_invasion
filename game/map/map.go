@@ -25,7 +25,12 @@ func (m *Map) Display() {
 }
 
 func (m *Map) Cities() []types.City {
-	return nil
+	cities := make([]types.City, len(m.cities))
+	for city := range m.cities {
+		cities = append(cities, city)
+	}
+
+	return cities
 }
 
 func (m *Map) RandomNeighbourCity(city types.City) types.City {
