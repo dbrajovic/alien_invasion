@@ -21,6 +21,8 @@ func New(aliens uint64, gameMap Map) *Engine {
 }
 
 func (e *Engine) Run() {
+	defer e.gameMap.Display()
+
 	for {
 		//	check if game should stop
 		if e.isDone() {
