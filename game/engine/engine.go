@@ -10,6 +10,7 @@ const (
 	maxTravels uint64 = 10000
 )
 
+// Engine is the main module that runs the game to completion
 type Engine struct {
 	aliens  []*types.Alien
 	gameMap Map
@@ -70,6 +71,14 @@ func (e *Engine) moveAliens() {
 }
 
 func (e *Engine) aliensFight() []types.City {
+	deadAliens, destroyedCities := getCasualties(e.groupAliensByCity())
+
+	e.removeAliens(deadAliens)
+
+	return destroyedCities
+}
+
+func (e *Engine) groupAliensByCity() map[types.City][]*types.Alien {
 	aliensByCities := make(map[types.City][]*types.Alien)
 	for _, alien := range e.aliens {
 		existing := aliensByCities[alien.Location]
@@ -77,6 +86,20 @@ func (e *Engine) aliensFight() []types.City {
 		aliensByCities[alien.Location] = existing
 	}
 
+	return aliensByCities
+}
+
+func (e *Engine) removeAliens(aliens []*types.Alien) {
+	for _, a := range aliens {
+		for i, aa := range e.aliens {
+			if a.Name == aa.Name {
+				e.aliens = append(e.aliens[:i], e.aliens[i+1:]...)
+			}
+		}
+	}
+}
+
+func getCasualties(aliensByCities map[types.City][]*types.Alien) ([]*types.Alien, []types.City) {
 	var (
 		destroyedCities []types.City
 		deadAliens      []*types.Alien
@@ -91,15 +114,7 @@ func (e *Engine) aliensFight() []types.City {
 		}
 	}
 
-	for _, a := range deadAliens {
-		for i, aa := range e.aliens {
-			if a.Name == aa.Name {
-				e.aliens = append(e.aliens[:i], e.aliens[i+1:]...)
-			}
-		}
-	}
-
-	return destroyedCities
+	return deadAliens, destroyedCities
 }
 
 func displayDestroyed(ciy types.City, aliens []*types.Alien) {
