@@ -19,7 +19,7 @@ func (m *Map) Cities() []types.City {
 }
 
 func (m *Map) RandomNeighbourCity(city types.City) types.City {
-	return ""
+	return m.cities[city].getRandomNeighbour()
 }
 
 func (m *Map) RemoveCity(city types.City) {

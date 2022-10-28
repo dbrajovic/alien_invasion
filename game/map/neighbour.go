@@ -1,6 +1,9 @@
 package _map
 
-import "github.com/alien_invasion/game/types"
+import (
+	"github.com/alien_invasion/game/types"
+	"math/rand"
+)
 
 type direction uint8
 
@@ -33,4 +36,13 @@ func (n *neighbourhood) isNeighbour(city types.City) bool {
 	}
 
 	return false
+}
+
+func (n *neighbourhood) getRandomNeighbour() types.City {
+	neighbours := make([]types.City, 0, len(*n))
+	for _, city := range *n {
+		neighbours = append(neighbours, city)
+	}
+
+	return neighbours[rand.Intn(len(*n))]
 }
