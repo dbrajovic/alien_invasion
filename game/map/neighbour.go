@@ -2,9 +2,10 @@ package _map
 
 import (
 	"fmt"
-	"github.com/alien_invasion/game/types"
 	"math/rand"
 	"strings"
+
+	"github.com/alien_invasion/game/types"
 )
 
 type direction uint8
@@ -46,11 +47,11 @@ func (d direction) String() string {
 	}
 }
 
-type neighbourhood map[direction]types.City
+type neighbourhood map[types.City]direction
 
 func (n *neighbourhood) String() string {
 	var result string
-	for dir, city := range *n {
+	for city, dir := range *n {
 		result += fmt.Sprintf("%s=%s ", dir, city)
 	}
 
@@ -58,30 +59,22 @@ func (n *neighbourhood) String() string {
 }
 
 func (n *neighbourhood) add(d direction, city types.City) {
-	(*n)[d] = city
+	(*n)[city] = d
 }
 
 func (n *neighbourhood) remove(city types.City) {
-	for d, c := range *n {
-		if c.Name() == city.Name() {
-			delete(*n, d)
-		}
-	}
+	delete(*n, city)
 }
 
 func (n *neighbourhood) isNeighbour(city types.City) bool {
-	for _, c := range *n {
-		if c.Name() == city.Name() {
-			return true
-		}
-	}
+	_, ok := (*n)[city]
 
-	return false
+	return ok
 }
 
 func (n *neighbourhood) getRandomNeighbour() types.City {
 	neighbours := make([]types.City, 0, len(*n))
-	for _, city := range *n {
+	for city := range *n {
 		neighbours = append(neighbours, city)
 	}
 

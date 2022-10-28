@@ -28,16 +28,16 @@ func TestMap_RemoveCity(t *testing.T) {
 		func(t *testing.T) {
 			m := &Map{cities: map[types.City]*neighbourhood{
 				"belgrade": {
-					west: "dubrovnik",
+					"dubrovnik": west,
 				},
 
 				"dubrovnik": {
-					east:  "belgrade",
-					north: "berlin",
+					"belgrade": east,
+					"berlin":   north,
 				},
 
 				"berlin": {
-					south: "dubrovnik",
+					"dubrovnik": south,
 				},
 			}}
 
@@ -56,11 +56,11 @@ func TestMap_RemoveCity(t *testing.T) {
 		func(t *testing.T) {
 			m := &Map{cities: map[types.City]*neighbourhood{
 				"belgrade": {
-					west: "dubrovnik",
+					"dubrovnik": west,
 				},
 
 				"dubrovnik": {
-					east: "belgrade",
+					"belgrade": east,
 				},
 			}}
 

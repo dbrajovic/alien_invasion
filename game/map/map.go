@@ -55,7 +55,7 @@ func loadMap(filename string) map[types.City]*neighbourhood {
 
 	defer func() {
 		if err := f.Close(); err != nil {
-			log.Fatal("cannot close file", "err=", err)
+			log.Fatal("cannot close file:", "err=", err)
 		}
 	}()
 
@@ -72,7 +72,6 @@ func loadCities(file *os.File) map[types.City]*neighbourhood {
 		words := strings.Fields(line)
 
 		city := types.City(words[0])
-
 		cities[city] = generateNeighbourhood(words[1:]...)
 	}
 
